@@ -1,0 +1,77 @@
+{
+  "hyperparameters": [
+    {
+      "name": "C",
+      "type": "uniform_float",
+      "log": true,
+      "lower": 1.0,
+      "upper": 20.0,
+      "default": 2.224420870210902
+    },
+    {
+      "name": "coef0",
+      "type": "uniform_float",
+      "log": false,
+      "lower": -0.5,
+      "upper": 0.5,
+      "default": 0.12056469544768333
+    },
+    {
+      "name": "degree",
+      "type": "uniform_int",
+      "log": true,
+      "lower": 1,
+      "upper": 128,
+      "default": 1
+    },
+    {
+      "name": "epsilon",
+      "type": "uniform_float",
+      "log": true,
+      "lower": 0.01,
+      "upper": 0.99,
+      "default": 0.026462331883601413
+    },
+    {
+      "name": "gamma",
+      "type": "categorical",
+      "choices": [
+        "scale",
+        "auto"
+      ],
+      "default": "auto"
+    },
+    {
+      "name": "kernel",
+      "type": "categorical",
+      "choices": [
+        "linear",
+        "rbf",
+        "poly",
+        "sigmoid"
+      ],
+      "default": "rbf"
+    },
+    {
+      "name": "shrinking",
+      "type": "categorical",
+      "choices": [
+        true,
+        false
+      ],
+      "default": false
+    },
+    {
+      "name": "tol",
+      "type": "uniform_float",
+      "log": true,
+      "lower": 0.0001,
+      "upper": 0.01,
+      "default":  0.009852835003416731
+    }
+  ],
+  "conditions": [],
+  "forbiddens": [],
+  "python_module_version": "0.4.12",
+  "json_format_version": 0.1
+}
