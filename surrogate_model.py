@@ -3,12 +3,9 @@ import logging
 import os
 import sys
 from abc import ABC, abstractmethod
-from IPython import embed
 
 import numpy as np
 import pathvalidate
-import torch
-import torch.backends.cudnn as cudnn
 
 #from nasbench301.surrogate_models import utils
 import utils
@@ -24,10 +21,6 @@ class SurrogateModel(ABC):
 
         # Seeding
         np.random.seed(seed)
-        cudnn.benchmark = True
-        torch.manual_seed(seed)
-        cudnn.enabled = True
-        torch.cuda.manual_seed(seed)
 
         # NOTE: Update to use absolute path, also moved configspace to
         #       be included in the installed package
