@@ -13,11 +13,11 @@ matplotlib.use('Agg')
 
 
 @click.command()
-@click.option('--data_root', type=click.STRING, help='path to nasbench root directory')
+@click.option('--data_root', type=click.STRING, help='path to accel-nasbench root directory')
 @click.option('--data_config_path', type=click.STRING, help='Path to config.json',
               default='configs/data_configs/nb_fpga.json')
 @click.option('--splits_log_dir', type=click.STRING, help='Experiment directory',
-              default='surrogate_models/configs/data_splits/default_split')
+              default='configs/data_splits/default_split')
 @click.option('--seed', type=click.INT, help='seed for numpy, python, pytorch', default=6)
 @click.option('--device', type=click.STRING, help='device', default='None')
 @click.option('--metric', type=click.STRING, help='metric', default='None')

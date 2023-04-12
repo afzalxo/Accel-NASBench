@@ -8,7 +8,7 @@ import time
 
 from ensemble import Ensemble
 
-data_root = "dataset_parsers/datasets_final_jsons/json/"
+data_root = "anb_dataset/anb_dataset_jsons/"
 train_paths = "configs/data_splits/default_split/train_paths.json"
 val_paths = "configs/data_splits/default_split/val_paths.json"
 test_paths = "configs/data_splits/default_split/test_paths.json"
