@@ -13,7 +13,8 @@ from tqdm import tqdm
 
 # Download URL
 # Note: Update if the download location changes
-URL_MODELS_0_9 = 'https://ndownloader.figshare.com/files/21981038'
+# URL_MODELS_0_9 = 'https://ndownloader.figshare.com/files/21981038'
+URL_MODELS_0_9 = 'https://ndownloader.figshare.com/files/40109821'
 
 
 def download(url, path):
@@ -43,7 +44,7 @@ def download_models(version, delete_zip=True,
     # Create paths and names
     download_url = URL_MODELS_0_9
     zip_filename = 'models_{}.zip'.format(version)
-    models_folder = 'anb_models_{}'.format(version)
+    models_folder = 'anb_models_0_9'# 'anb_models_{}'.format(version)
 
     current_dir = download_dir
     zip_path = os.path.join(current_dir, zip_filename)
@@ -63,7 +64,7 @@ def download_models(version, delete_zip=True,
         print('Extracting {} to {}'.format(zip_filename, models_dir))
         with ZipFile(zip_path, 'r') as zipfile:
             zipfile.extractall(current_dir)
-        unzipped_folder_name = os.path.join(current_dir, 'anb_models')
+        unzipped_folder_name = os.path.join(current_dir, 'anb_models_0_9')
         os.rename(unzipped_folder_name, models_dir)
 
         # Finally, remove the zip
