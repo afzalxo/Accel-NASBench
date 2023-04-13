@@ -21,7 +21,7 @@ The example file will download the XGB surrogates to `anb_models_0_9` directory 
 from configurationspaces.searchspaces import EfficientNetSS as ss
 # Create search space instance
 search_space = ss()
-# Specify instance
+# Specify sample instance
 test_sample_man = search_space.manual_sample(
     [
         [1, 6, 6, 6, 6, 6, 6],  # Expansion Factor for the 7 blocks
@@ -55,7 +55,12 @@ Or to fit the _throughput XGB surrogate for ZCU102 FPGA_ on random train/val/tes
 python3 fit_model.py --dataset_root <path/to/extracted/dataset/> --model xgb_accel --device zcu102 --metric throughput --model_config_path ./configs/model_configs/gradient_boosting/xgb_accel_zcu102_throughput_configspace.json --data_config_path configs/data_configs/nb_fpga.json --log_dir experiments/ --seed <seed>
 ```
 
+When fitting surrogates for throughput/latency, use models <xgb/lgb/sklearn_forest/svr/svr_nu>\_accel, combined with --device <zcu102/vck190/tpuv2/tpuv3/a100/3090> and --metric <throughput/latency>. Throughput is supported by all 6 devices while latency is supported by only the FPGAs.
+
 The dataset splits utilized in this work were generated using the `create_data_splits.py` file. The splits are located in configs directory [here](https://github.com/afzalxo/Accel-NASBench/tree/master/configs/data_splits/default_split). Please place the dataset inside a directory structure specified inside the splits json files when training on the manual splits rather than random splits.
+
+### Dataset Collection Pipelines
+Owing to the complex instrumentation of dataset collection, we have an entire repository that details collection pipelines for accuracy, throughput, and latency. Please see [ANB-DatasetCollection](https://github.com/afzalxo/ANB-DatasetCollection). Please note that collection of throughput/latency requires specialized hardware such as TPUs and FPGAs.
 
 ## Acknowledgements
 This repository builds upon code from the following repositories:
@@ -65,6 +70,3 @@ This repository builds upon code from the following repositories:
 - [SMAC3](https://github.com/automl/SMAC3)
 
 We are grateful to the authors of these repositories for their contributions.
-
-### Dataset Collection Pipelines
-Owing to the complex instrumentation of dataset collection, we have an entire repository that details collection pipelines for accuracy, throughput, and latency. Please see [ANB-DatasetCollection](https://github.com/afzalxo/ANB-DatasetCollection). Please note that collection of throughput/latency requires specialized hardware such as TPUs and FPGAs.
