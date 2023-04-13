@@ -59,6 +59,11 @@ When fitting surrogates for throughput/latency, use models <xgb/lgb/sklearn_fore
 
 The dataset splits utilized in this work were generated using the `create_data_splits.py` file. The splits are located in configs directory [here](https://github.com/afzalxo/Accel-NASBench/tree/master/configs/data_splits/default_split). Please place the dataset inside a directory structure specified inside the splits json files when training on the manual splits rather than random splits.
 
+### Hyperparameter Optimization
+The hyperparameters of the surrogates were optimized using [SMAC3](https://github.com/automl/SMAC3). Plase see `do_hpo.py` and `shell/hpo_all.sh` for details and file an issue if face an issue trying to perform HPO. 
+
+The searched hyperparameters for various device/metric pairs can be found [here](https://github.com/afzalxo/Accel-NASBench/tree/master/configs/model_configs).
+
 ### Dataset Collection Pipelines
 Owing to the complex instrumentation of dataset collection, we have an entire repository that details collection pipelines for accuracy, throughput, and latency. Please see [ANB-DatasetCollection](https://github.com/afzalxo/ANB-DatasetCollection). Please note that collection of throughput/latency requires specialized hardware such as TPUs and FPGAs.
 
