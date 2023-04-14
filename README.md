@@ -44,7 +44,7 @@ The accuracy surrogate instance can be created using `anb.ANBEnsemble('xgb')`. T
 ensemble_inst_thr = anb.ANBEnsemble("xgb", device="tpuv2", metric="throughput")
 ```
 
-The supported devices and their corresponding metrics are as follows:
+The supported `device`s and their corresponding `metric`s are as follows:
 
 ``` python3
 supported_metrics = {
@@ -60,10 +60,10 @@ supported_metrics = {
 A possible result of running `example.py` is follows. The result will be different each run owing to the random sampling of architecture. For the manually specified sample, the results would be the same each run:
 
 ``` python3
-Mean Accuracy: [51.687283 65.736916]
+Mean Accuracy: [51.687283 65.736916]  # [Acc of sample 1, Acc of sample 2]
 Std Acc: [0.13972819 0.1365913 ]
-Mean Throughput: [1320.735   883.5296]
-Std Thr: [7.4857635 8.001069 ]
+Mean Throughput: [1320.735   883.5296]  # [Throughput of sample 1, of sample 2] in images/sec
+Std Thr: [7.4857635 8.001069 ]  # Standard deviation in throughput is measured in images/sec
 ```
 
 Since we passed two samples to `.query` methods, we get their corresponding results in arrays, first element of the array corresponds to the result of the first sample. 
@@ -80,7 +80,16 @@ Although we provide the surrogate models, they can be trained manually using the
 python3 fit_model.py --dataset_root <path/to/extracted/dataset/> --model xgb --model_config_path ./configs/model_configs/gradient_boosting/xgb_configspace.json --data_config_path configs/data_configs/nb_fpga.json --log_dir experiments/ --seed <seed>
 ```
 
-Or to fit the _throughput XGB surrogate for ZCU102 FPGA_ on random train/val/test splits:
+Example result of the above command using `seed=3` is as follows but will be different each run:
+
+``` python3
+train metrics: {'mae': 0.20502309085633813, 'mse': 0.06897010112105674, 'rmse': 0.2626215930213217, 'r2': 0.9937321545409954, 'kendall_tau': 0.9485453372279331, 'kendall_tau_2_dec': 0.9490165549382614, 'kendall_tau_1_dec': 0.9521390453390867, 'spearmanr': 0.9963628656408133}
+valid metrics: {'mae': 0.32042279419469843, 'mse': 0.19266443301611308, 'rmse': 0.4
+3893556818297724, 'r2': 0.9827909607086215, 'kendall_tau': 0.9246529281557777, 'kendall_tau_2_dec': 0.9252142975144962, 'kendall_tau_1_dec': 0.9283951048238933, 'spearmanr': 0.991347023504538}
+test metrics {'mae': 0.3169779104452133, 'mse': 0.16787281044461427, 'rmse': 0.4097228458905047, 'r2': 0.9839661171659461, 'kendall_tau': 0.9170514701750982, 'kendall_tau_2_dec': 0.9175674110264382, 'kendall_tau_1_dec': 0.9204615872718475, 'spearmanr': 0.98994312462432}
+```
+
+To fit the _throughput XGB surrogate for ZCU102 FPGA_ on random train/val/test splits:
 ``` bash
 python3 fit_model.py --dataset_root <path/to/extracted/dataset/> --model xgb_accel --device zcu102 --metric throughput --model_config_path ./configs/model_configs/gradient_boosting/xgb_accel_zcu102_throughput_configspace.json --data_config_path configs/data_configs/nb_fpga.json --log_dir experiments/ --seed <seed>
 ```
