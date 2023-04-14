@@ -38,6 +38,36 @@ or sample 4 random architectures using
 test_samples_rand = search_space.random_sample(4)
 ```
 
+The accuracy surrogate instance can be created using `anb.ANBEnsemble('xgb')`. The throughput surrogate instance can be created as follows
+
+``` python3
+ensemble_inst_thr = anb.ANBEnsemble("xgb", device="tpuv2", metric="throughput")
+```
+
+The supported devices and their corresponding metrics are as follows:
+
+``` python3
+supported_metrics = {
+            "3090": ["throughput"],
+            "a100": ["throughput"],
+            "tpuv2": ["throughput"],
+            "tpuv3": ["throughput"],
+            "zcu102": ["latency", "throughput"],
+            "vck190": ["latency", "throughput"],
+        }
+```
+
+A possible result of running `example.py` is follows. The result will be different each run owing to the random sampling of architecture. For the manually specified sample, the results would be the same each run:
+
+``` python3
+Mean Accuracy: [51.687283 65.736916]
+Std Acc: [0.13972819 0.1365913 ]
+Mean Throughput: [1320.735   883.5296]
+Std Thr: [7.4857635 8.001069 ]
+```
+
+Since we passed two samples to `.query` methods, we get their corresponding results in arrays, first element of the array corresponds to the result of the first sample. 
+
 ### Accel-NASBench dataset
 Dataset utilized to train the surrogates is provided in json format [here](https://github.com/afzalxo/Accel-NASBench/tree/master/anb_dataset) similar to that used by NASBench-301. Please see a sample result_x.json file to understand its different fields. Each result_x.json file contains architecture specification, accuracy, train time, and all on-device throughput/latency measurement mean and standard deviations. We train the surrogates using mean throughput/latency values. Accuracy is evaluated only at a single seed.
 
