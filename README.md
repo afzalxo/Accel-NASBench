@@ -104,7 +104,7 @@ The hyperparameters of the surrogates were optimized using [SMAC3](https://githu
 The searched hyperparameters for various device/metric pairs can be found [here](https://github.com/afzalxo/Accel-NASBench/tree/master/configs/model_configs).
 
 ### Dataset Collection Pipelines
-Owing to the complex instrumentation of dataset collection, we have an entire repository that details collection pipelines for accuracy, throughput, and latency. Please see [ANB-DatasetCollection](https://github.com/afzalxo/ANB-DatasetCollection). Please note that collection of throughput/latency requires specialized hardware such as TPUs and FPGAs.
+Owing to the complex instrumentation of dataset collection, we have an entire repository that details collection pipelines for accuracy, throughput, and latency. Please see [ANB-DatasetCollection](https://anon-github.automl.cc/r/ANB-DatasetCollection-C564/README.md). Please note that collection of throughput/latency requires specialized hardware such as TPUs and FPGAs.
 
 ## Acknowledgements
 This repository builds upon code from the following repositories:
