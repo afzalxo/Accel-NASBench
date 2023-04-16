@@ -10,7 +10,6 @@ import multiprocessing
 from utils_anb.utils_nasnet import configuration_to_searchable
 from utils_anb.utils_nasnet import plot_scatter_pareto
 from utils_anb.utils_nasnet import pareto_frontier
-import wandb
 import pickle
 
 multiprocessing.set_start_method("spawn", force=True)
@@ -97,7 +96,7 @@ class RandomSearchSimulated(object):
     def random_sample(self):
         return self.ss_configspace.sample_configuration()
 
-    def multi_solve_environment(self, csv_path, wandb_con):
+    def multi_solve_environment(self, csv_path):
         current_best_acc = 0
         top_design = None
         top5_accs = []
@@ -138,20 +137,6 @@ class RandomSearchSimulated(object):
                     [arch_epoch, top1_acc, top5_avg_acc, top1_acc_epoch, acc_epoch_avg]
                 )
                 fh.flush()
-                wandb_con.log(
-                    {
-                        "Top-1 Acc": top1_acc,
-                        "Top-5 Avg Acc": top5_avg_acc,
-                        "Epoch Top-1 Acc": top1_acc_epoch,
-                        "Epoch Avg Acc": acc_epoch_avg,
-                    }
-                )
-        artifact = wandb.Artifact(
-            name=f"search-sim-{self.algorithm}",
-            type="architecture",
-            metadata={"Best Design": top_design, "Acc": current_best_acc},
-        )
-        wandb_con.log_artifact(artifact)
 
 
 class RandomSearchSimulatedMO(object):
@@ -176,7 +161,7 @@ class RandomSearchSimulatedMO(object):
     def random_sample(self):
         return self.ss_configspace.sample_configuration()
 
-    def multi_solve_environment(self, csv_path, exp_dir, wandb_con):
+    def multi_solve_environment(self, csv_path, exp_dir):
         all_accs = []
         all_biobjs = []
         all_designs = []
@@ -223,50 +208,6 @@ class RandomSearchSimulatedMO(object):
                             "wb",
                         ),
                     )
-
-                """
-                top1_acc_epoch = max(accs)
-                acc_epoch_avg = sum(accs) / len(accs)
-
-                for _ep, (_acc, _design) in enumerate(zip(accs, designs)):
-                    if current_best_acc < _acc:
-                        current_best_acc = _acc
-                        top_design = _design
-                # sort worker retain top20
-                top_accs = top5_accs + accs
-                top5_accs = sorted(top_accs, reverse=True)[:5]
-                top1_acc = top_accs[0]
-                top5_avg_acc = sum(top5_accs) / len(top5_accs)
-                logging.info(
-                    "arch_epoch {:0>3d} top1_acc {:.4f} top5_avg_acc {:.4f} top1_acc_epoch {:.4f} epoch_avg_acc {:.4f}".format(
-                        arch_epoch,
-                        top1_acc,
-                        top5_avg_acc,
-                        top1_acc_epoch,
-                        acc_epoch_avg,
-                    )
-                )
-                writer.writerow(
-                    [arch_epoch, top1_acc, top5_avg_acc, top1_acc_epoch, acc_epoch_avg]
-                )
-                fh.flush()
-                wandb_con.log(
-                    {
-                        "Top-1 Acc": top1_acc,
-                        "Top-5 Avg Acc": top5_avg_acc,
-                        "Epoch Top-1 Acc": top1_acc_epoch,
-                        "Epoch Avg Acc": acc_epoch_avg,
-                    }
-                )
-                """
-        """
-        artifact = wandb.Artifact(
-            name=f"search-sim-{self.algorithm}",
-            type="architecture",
-            metadata={"Best Design": top_design, "Acc": current_best_acc},
-        )
-        wandb_con.log_artifact(artifact)
-        """
 
 
 def main():

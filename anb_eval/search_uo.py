@@ -9,9 +9,8 @@ import os
 import sys
 import random
 
-import wandb
-
-sys.path.append("/home/aahmadaa/NASBenchFPGA/surrogate_benchmarks")
+anb_dir = os.path.dirname(os.getcwd())
+sys.path.append(anb_dir)
 import accelnb as anb
 
 parser = argparse.ArgumentParser("search-imagenet")
@@ -23,11 +22,8 @@ parser.add_argument("--episodes", type=int, default=6)
 parser.add_argument("--entropy_weight", type=float, default=1e-5)
 parser.add_argument("--baseline_weight", type=float, default=0.95)
 parser.add_argument("--embedding_size", type=int, default=32)
-parser.add_argument("--algorithm", type=str, choices=["PPO", "PG", "RS"], default="RS")
+parser.add_argument("--algorithm", type=str, choices=["PG", "RS"], default="RS")
 parser.add_argument("--simulated", action="store_true", default=True)
-# PPO
-parser.add_argument("--ppo_epochs", type=int, default=10)
-parser.add_argument("--clip_epsilon", type=float, default=0.2)
 
 parser.add_argument("--gpu", type=int, default=0)
 parser.add_argument("--seed", type=int, default=2, help="random seed")
@@ -64,13 +60,6 @@ def main():
     fh.setFormatter(logging.Formatter(log_format))
     logging.getLogger().addHandler(fh)
     logging.info("args = %s", args)
-    wandb_con = wandb.init(
-        project="NASBenchFPGA",
-        entity="europa1610",
-        name=f"search-{args.algorithm}-UniObj-{search_type}-seed{args.seed}",
-        group=f"search-{args.algorithm}-{search_type}",
-    )
-    args.wandb_con = wandb_con
 
     configspace_path = "configspace/configspace.json"
     surr_model = anb.ANBEnsemble("xgb", seed=args.seed).load_ensemble()
@@ -83,26 +72,20 @@ def main():
             rs = RandomSearchSimulated(
                 configspace_path, args.arch_epochs, args.episodes, surr_model
             )
-            rs.multi_solve_environment(csv_path, wandb_con)
+            rs.multi_solve_environment(csv_path)
         elif args.algorithm == "PG":
-            from SearchAlgorithms.policy_gradient import (
+            from nas_optimizers.policy_gradient import (
                 PolicyGradientSimulated,
             )
 
             pg = PolicyGradientSimulated(args, configspace_path, surr_model, device)
-            pg.multi_solve_environment(csv_path, exp_dir, wandb_con)
+            pg.multi_solve_environment(csv_path, exp_dir)
     else:
-        if args.algorithm == "PPO" or args.algorithm == "PG":
-            from policy_gradient import PolicyGradient
-
-            # from PPO import PPO
-            if args.algorithm == "PPO":
-                from PPO import PPO
-                ppo = PPO(args, device)
-                ppo.multi_solve_environment()
-            elif args.algorithm == "PG":
+        if args.algorithm == "PG":
+            from nas_optimizers.policy_gradient import PolicyGradient
+            if args.algorithm == "PG":
                 pg = PolicyGradient(args, configspace_path, surr_model, device)
-                pg.multi_solve_environment(csv_path, exp_dir, wandb_con)
+                pg.multi_solve_environment(csv_path, exp_dir)
 
 
 if __name__ == "__main__":

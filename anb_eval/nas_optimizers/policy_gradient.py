@@ -9,7 +9,6 @@ from multiprocessing import Process, Queue, Lock
 import multiprocessing
 import csv
 import pickle
-import wandb
 
 from utils_anb.controller import Controller
 from utils_anb.utils_nasnet import actions_indices_to_config
@@ -66,8 +65,8 @@ class PolicyGradient(object):
             self.workers_top20 = _res["workers_top20"]
             print(f"[RESUME] Search resumed from Epoch {self.start_ep}")
 
-    def multi_solve_environment(self, csv_path, exp_dir, wandb_con):
-        from utils.worker import (
+    def multi_solve_environment(self, csv_path, exp_dir):
+        from utils_anb.worker import (
             WorkerTACC,
         )  # This corresponds to a worker that submits a train job on our in-house cluster. This would need to be adapted to the users own slurm/cloud servers.
 
@@ -167,10 +166,6 @@ class PolicyGradient(object):
                     )
                 )
 
-                wandb_con.log(
-                    {"Loss": loss, "Top-1 Acc": top1_acc, "Top-5 Acc": top5_avg_acc},
-                    commit=True,
-                )
                 self.adam.zero_grad()
                 loss.backward()
                 self.adam.step()
@@ -235,7 +230,7 @@ class PolicyGradientSimulated(object):
         self.start_ep = 0
         self.workers_top20 = []
 
-    def multi_solve_environment(self, csv_path, exp_dir, wandb_con):
+    def multi_solve_environment(self, csv_path, exp_dir):
         csv_hres = os.path.join(exp_dir, "results_granular.csv")
         top_design = None
         current_best_acc = 0
@@ -314,16 +309,6 @@ class PolicyGradientSimulated(object):
                     )
                 )
 
-                wandb_con.log(
-                    {
-                        "Loss": loss,
-                        "Top-1 Acc": top1_acc,
-                        "Top-5 Acc": top5_avg_acc,
-                        "Epoch Top-1 Acc": best_worker_acc,
-                        "Epoch Avg Acc": avg_worker_accs,
-                    },
-                    commit=True,
-                )
                 self.adam.zero_grad()
                 loss.backward()
                 self.adam.step()
@@ -339,12 +324,6 @@ class PolicyGradientSimulated(object):
                 )
                 fh.flush()
                 self.save_controller_params(arch_epoch, exp_dir)
-            artifact = wandb.Artifact(
-                name=f"search-sim-{self.args.algorithm}",
-                type="architecture",
-                metadata={"Best Design": top_design, "Acc": current_best_acc},
-            )
-            wandb_con.log_artifact(artifact)
 
     def cal_loss(self, actions_p, actions_log_p, worker_acc, baseline):
         reward = worker_acc - baseline
@@ -424,7 +403,7 @@ class PolicyGradientSimulatedMO(object):
         biobj = biobj.tolist()
         return accs, biobj, actions_indices, designs
 
-    def multi_solve_environment(self, csv_path, exp_dir, wandb_con):
+    def multi_solve_environment(self, csv_path, exp_dir):
         csv_hres = os.path.join(exp_dir, "results_granular.csv")
         all_accs = []
         all_biobjs = []
@@ -566,18 +545,6 @@ class PolicyGradientSimulatedMO(object):
                     )
                 )
 
-                wandb_con.log(
-                    {
-                        "Loss": loss,
-                        "Top-1 Acc": top1_acc,
-                        "Top-5 Avg Acc": top5_avg_acc,
-                        "Top-1 BiObj": top1_biobj,
-                        "Top-5 Avg BiObj": top5_avg_biobj,
-                        "Avg Epoch Acc": mean_acc,
-                        "Avg Epoch BiObj": mean_biobj,
-                    },
-                    commit=True,
-                )
                 self.adam.zero_grad()
                 loss.backward()
                 self.adam.step()

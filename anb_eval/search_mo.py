@@ -8,11 +8,9 @@ import time
 import os
 import sys
 
-import wandb
-
 current_dir = os.getcwd()
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
+anb_dir = os.path.dirname(current_dir)
+sys.path.append(anb_dir)
 import accelnb as anb
 
 parser = argparse.ArgumentParser("search-imagenet")
@@ -32,10 +30,6 @@ parser.add_argument("--clip_epsilon", type=float, default=0.2)
 
 parser.add_argument("--gpu", type=int, default=0)
 parser.add_argument("--seed", type=int, default=2, help="random seed")
-
-# TODO: Remove dependency on WandB
-parser.add_argument("--wandb_project", type=str, help="Name of wandb project")
-parser.add_argument("--wandb_user", type=str, help="Name of wandb entity")
 
 # Bi Objective
 parser.add_argument("--target_biobj", type=float, default=400.0, help="Target throughput")
@@ -77,14 +71,6 @@ def main():
 
     logging.info("args = %s", args)
 
-    wandb_con = wandb.init(
-        project=args.wandb_project,
-        entity=args.wandb_user,
-        name=f"search-{args.algorithm}",
-        group=f"search-{args.algorithm}-{search_type}",
-    )
-    args.wandb_con = wandb_con
-
     configspace_path = "configspace/configspace.json"
     acc_surrogate = anb.ANBEnsemble("xgb", seed=None).load_ensemble()
     biobj_surrogate = anb.ANBEnsemble(
@@ -95,13 +81,13 @@ def main():
         pg = PolicyGradientSimulatedMO(
             args, configspace_path, acc_surrogate, biobj_surrogate, device
         )
-        pg.multi_solve_environment(csv_path, exp_dir, wandb_con)
+        pg.multi_solve_environment(csv_path, exp_dir)
     elif args.algorithm == "RS":
         from nas_optimizers.random_search import RandomSearchSimulatedMO
         rs = RandomSearchSimulatedMO(
             args, configspace_path, acc_surrogate, biobj_surrogate
         )
-        rs.multi_solve_environment(csv_path, exp_dir, wandb_con)
+        rs.multi_solve_environment(csv_path, exp_dir)
 
 
 if __name__ == "__main__":

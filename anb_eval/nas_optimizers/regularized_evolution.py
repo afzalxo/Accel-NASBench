@@ -14,7 +14,8 @@ from copy import deepcopy
 import ConfigSpace
 import numpy as np
 
-sys.path.append("/home/aahmadaa/NASBenchFPGA/surrogate_benchmarks")
+anb_dir = os.path.dirname(os.path.dirname(os.getcwd()))
+sys.path.append(anb_dir)
 import accelnb as anb
 
 
@@ -60,13 +61,11 @@ class Model(object):
     def __str__(self):
         """Prints a readable version of this bitstring."""
         # print(self.arch)
-        #return '{0:b}'.format(self.arch)
         return str(self.arch)
 
 
 def eval_arch(config):
     acc, _ = b.query(config)
-    # returns negative error (similar to maximizing accuracy)
     return acc
 
 
@@ -110,7 +109,7 @@ def regularized_evolution(cycles, population_size, sample_size):
     # Carry out evolution in cycles. Each cycle produces a model and removes
     # another.
     best_acc_so_far = [max(history, key=lambda i: i.accuracy).accuracy[0]]
-    acc_traject = [(len(history)/cycles * 100, best_acc_so_far[0])]
+    acc_traject = [(len(history), best_acc_so_far[0])]
     cur_cycle = len(history)
     while len(history) < cycles:
         # Sample randomly chosen models from the current population.
@@ -126,7 +125,7 @@ def regularized_evolution(cycles, population_size, sample_size):
         parent = max(sample, key=lambda i: i.accuracy)
         if best_acc_so_far[-1] < parent.accuracy[0]:
             best_acc_so_far.append(parent.accuracy[0])
-        acc_traject.append(((cur_cycle+1)/cycles * 100, best_acc_so_far[-1]))
+        acc_traject.append((cur_cycle+1, best_acc_so_far[-1]))
 
         # Create the child model and store it.
         child = Model()
@@ -143,11 +142,10 @@ def regularized_evolution(cycles, population_size, sample_size):
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--run_id', default=0, type=int, nargs='?', help='unique number to identify this run')
-parser.add_argument('--n_iters', default=600, type=int, nargs='?', help='number of iterations for optimization method')
-parser.add_argument('--output_path', default="./", type=str, nargs='?',
+parser.add_argument('--run_id', default=0, type=int, help='unique number to identify this run')
+parser.add_argument('--n_iters', default=600, type=int, help='number of iterations for optimization method')
+parser.add_argument('--output_path', default="./", type=str,
                     help='specifies the path where the results will be saved')
-parser.add_argument('--data_dir', default="./", type=str, nargs='?', help='specifies the path to the tabular data')
 parser.add_argument('--pop_size', default=20, type=int, nargs='?', help='population size')
 parser.add_argument('--sample_size', default=10, type=int, nargs='?', help='sample_size')
 parser.add_argument('--seed', default=1, type=int)
@@ -170,7 +168,6 @@ cs = cs_json.read(json_string)
 history, final, acc_trajectory = regularized_evolution(
     cycles=args.n_iters, population_size=args.pop_size, sample_size=args.sample_size)
 
-print(acc_trajectory)
 with open(os.path.join(output_path, f"acc_trajectory_rea_{args.seed}.csv"), 'w', newline="") as csv_file:
     csv_writer = csv.writer(csv_file)
     for elem in acc_trajectory:
