@@ -1,0 +1,303 @@
+{
+  "hyperparameters": [
+    {
+      "name": "block0_e",
+      "type": "categorical",
+      "choices": [
+        1,
+        4,
+        6
+      ],
+      "default": 1,
+      "weights": null
+    },
+    {
+      "name": "block0_k",
+      "type": "categorical",
+      "choices": [
+        3,
+        5
+      ],
+      "default": 3,
+      "weights": null
+    },
+    {
+      "name": "block0_l",
+      "type": "categorical",
+      "choices": [
+        1,
+        2,
+        3
+      ],
+      "default": 1,
+      "weights": null
+    },
+    {
+      "name": "block0_se",
+      "type": "categorical",
+      "choices": [
+        true,
+        false
+      ],
+      "default": false,
+      "weights": null
+    },
+    {
+      "name": "block1_e",
+      "type": "categorical",
+      "choices": [
+        1,
+        4,
+        6
+      ],
+      "default": 1,
+      "weights": null
+    },
+    {
+      "name": "block1_k",
+      "type": "categorical",
+      "choices": [
+        3,
+        5
+      ],
+      "default": 3,
+      "weights": null
+    },
+    {
+      "name": "block1_l",
+      "type": "categorical",
+      "choices": [
+        1,
+        2,
+        3
+      ],
+      "default": 1,
+      "weights": null
+    },
+    {
+      "name": "block1_se",
+      "type": "categorical",
+      "choices": [
+        true,
+        false
+      ],
+      "default": false,
+      "weights": null
+    },
+    {
+      "name": "block2_e",
+      "type": "categorical",
+      "choices": [
+        1,
+        4,
+        6
+      ],
+      "default": 1,
+      "weights": null
+    },
+    {
+      "name": "block2_k",
+      "type": "categorical",
+      "choices": [
+        3,
+        5
+      ],
+      "default": 3,
+      "weights": null
+    },
+    {
+      "name": "block2_l",
+      "type": "categorical",
+      "choices": [
+        1,
+        2,
+        3
+      ],
+      "default": 1,
+      "weights": null
+    },
+    {
+      "name": "block2_se",
+      "type": "categorical",
+      "choices": [
+        true,
+        false
+      ],
+      "default": false,
+      "weights": null
+    },
+    {
+      "name": "block3_e",
+      "type": "categorical",
+      "choices": [
+        1,
+        4,
+        6
+      ],
+      "default": 1,
+      "weights": null
+    },
+    {
+      "name": "block3_k",
+      "type": "categorical",
+      "choices": [
+        3,
+        5
+      ],
+      "default": 3,
+      "weights": null
+    },
+    {
+      "name": "block3_l",
+      "type": "categorical",
+      "choices": [
+        1,
+        2,
+        3
+      ],
+      "default": 1,
+      "weights": null
+    },
+    {
+      "name": "block3_se",
+      "type": "categorical",
+      "choices": [
+        true,
+        false
+      ],
+      "default": false,
+      "weights": null
+    },
+    {
+      "name": "block4_e",
+      "type": "categorical",
+      "choices": [
+        1,
+        4,
+        6
+      ],
+      "default": 1,
+      "weights": null
+    },
+    {
+      "name": "block4_k",
+      "type": "categorical",
+      "choices": [
+        3,
+        5
+      ],
+      "default": 3,
+      "weights": null
+    },
+    {
+      "name": "block4_l",
+      "type": "categorical",
+      "choices": [
+        1,
+        2,
+        3
+      ],
+      "default": 1,
+      "weights": null
+    },
+    {
+      "name": "block4_se",
+      "type": "categorical",
+      "choices": [
+        true,
+        false
+      ],
+      "default": false,
+      "weights": null
+    },
+    {
+      "name": "block5_e",
+      "type": "categorical",
+      "choices": [
+        1,
+        4,
+        6
+      ],
+      "default": 1,
+      "weights": null
+    },
+    {
+      "name": "block5_k",
+      "type": "categorical",
+      "choices": [
+        3,
+        5
+      ],
+      "default": 3,
+      "weights": null
+    },
+    {
+      "name": "block5_l",
+      "type": "categorical",
+      "choices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "default": 1,
+      "weights": null
+    },
+    {
+      "name": "block5_se",
+      "type": "categorical",
+      "choices": [
+        true,
+        false
+      ],
+      "default": false,
+      "weights": null
+    },
+    {
+      "name": "block6_e",
+      "type": "categorical",
+      "choices": [
+        1,
+        4,
+        6
+      ],
+      "default": 1,
+      "weights": null
+    },
+    {
+      "name": "block6_k",
+      "type": "categorical",
+      "choices": [
+        3,
+        5
+      ],
+      "default": 3,
+      "weights": null
+    },
+    {
+      "name": "block6_l",
+      "type": "categorical",
+      "choices": [
+        1,
+        2,
+        3
+      ],
+      "default": 1,
+      "weights": null
+    },
+    {
+      "name": "block6_se",
+      "type": "categorical",
+      "choices": [
+        true,
+        false
+      ],
+      "default": false,
+      "weights": null
+    }
+  ],
+  "conditions": [],
+  "forbiddens": [],
+  "python_module_version": "0.6.0",
+  "json_format_version": 0.4
+}

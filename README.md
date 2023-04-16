@@ -104,7 +104,7 @@ The hyperparameters of the surrogates were optimized using [SMAC3](https://githu
 The searched hyperparameters for various device/metric pairs can be found [here](https://github.com/afzalxo/Accel-NASBench/tree/master/configs/model_configs).
 
 ### Plots and Tables
-The subdirectory plots contains the code and data for makings the plots and tables. It relies on the benchmark to generate the predictions. In order to make the plots, LGB surrogate model is needed and can be downloaded [TODO](). Extract the LGB surrogate into the anb_models_0_9 directory. Also needed are the ablation surrogate models. These are models that are trained on subsets of the total datasets, and are required to make e.g., Fig. 2 of the paper. These models can be downloaded [TODO](). Extract the ablation models in `experiments/ablation_models` since that is where the models are loaded from as follows:
+The subdirectory plots contains the code and data for makings the plots and tables. It relies on the benchmark to generate the predictions. In order to make the plots, LGB surrogate model is needed and can be downloaded [here](https://figshare.com/ndownloader/files/40181317). Extract the LGB surrogate into the `anb_models_0_9` directory. Also needed are the ablation surrogate models. These are models that are trained on subsets of the total datasets, and are required to make e.g., Fig. 2 of the paper. These models can be downloaded [TODO](). Extract the ablation models in `experiments/ablation_models` since that is where the models are loaded from as follows:
 
 ``` python3
 subdir = f"experiments/ablation_models/xgb/model_{q}samples-{seed}"  # q is the number of samples and seed is the seed with which the ablation model was trained.
@@ -117,6 +117,9 @@ python3 plots/ablations_plots/scatter_multiseed_eval.py
 ```
 
 This would generate Fig. 1 and Fig. 2 plots and save pdfs of them.
+
+### ANB Evaluation
+Please see [anb-eval]()
 
 ### Dataset Collection Pipelines
 Owing to the complex instrumentation of dataset collection, we have an entire repository that details collection pipelines for accuracy, throughput, and latency. Please see [ANB-DatasetCollection](https://anon-github.automl.cc/r/ANB-DatasetCollection-C564). Please note that collection of throughput/latency requires specialized hardware such as TPUs and FPGAs.
