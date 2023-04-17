@@ -94,7 +94,7 @@ To fit the _throughput XGB surrogate for ZCU102 FPGA_ on random train/val/test s
 python3 fit_model.py --dataset_root <path/to/extracted/dataset/> --model xgb_accel --device zcu102 --metric throughput --model_config_path ./configs/model_configs/gradient_boosting/xgb_accel_zcu102_throughput_configspace.json --data_config_path configs/data_configs/nb_fpga.json --log_dir experiments/ --seed <seed>
 ```
 
-When fitting surrogates for throughput/latency, use models <xgb/lgb/sklearn_forest/svr/svr_nu>\_accel, combined with --device <zcu102/vck190/tpuv2/tpuv3/a100/3090> and --metric <throughput/latency>. Throughput is supported by all 6 devices while latency is supported by only the FPGAs.
+When fitting surrogates for throughput/latency, use models <xgb/lgb/sklearn_forest/svr/svr_nu>\_accel, combined with --device <zcu102/vck190/tpuv2/tpuv3/a100/3090> and --metric <throughput/latency>. Throughput is supported by all 6 devices while latency is supported by only the FPGAs. The relevant model config files for model/device/metric are located [here](https://github.com/afzalxo/Accel-NASBench/tree/master/configs/model_configs).
 
 The dataset splits utilized in this work were generated using the `create_data_splits.py` file. The splits are located in configs directory [here](https://github.com/afzalxo/Accel-NASBench/tree/master/configs/data_splits/default_split). Please place the dataset inside a directory structure specified inside the splits json files when training on the manual splits rather than random splits.
 
@@ -104,7 +104,7 @@ The hyperparameters of the surrogates were optimized using [SMAC3](https://githu
 The searched hyperparameters for various device/metric pairs can be found [here](https://github.com/afzalxo/Accel-NASBench/tree/master/configs/model_configs).
 
 ### Plots and Tables
-The subdirectory plots contains the code and data for makings the plots and tables. It relies on the benchmark to generate the predictions. In order to make the plots, LGB surrogate model is needed and can be downloaded [here](https://figshare.com/ndownloader/files/40181317). Extract the LGB surrogate into the `anb_models_0_9` directory. Also needed are the ablation surrogate models. These are models that are trained on subsets of the total datasets, and are required to make e.g., Fig. 2 of the paper. These models can be downloaded [here](https://figshare.com/ndownloader/files/40191598). Extract the ablation models in `experiments/ablation_models` since that is where the models are loaded from as follows:
+The subdirectory plots contains the code and data for makings the plots and tables. It relies on the benchmark to generate the predictions. In order to make the plots, LGB surrogate model is needed and can be downloaded [here](https://figshare.com/ndownloader/files/40181317). Extract the LGB surrogate zip file into the `anb_models_0_9` directory. Also needed are the ablation surrogate models. These are models that are trained on subsets of the total datasets, and are required to make e.g., Fig. 2 of the paper. These models can be downloaded [here](https://figshare.com/ndownloader/files/40191598). Extract the ablation models in `experiments/ablation_models` since that is where the models are loaded from as follows:
 
 ``` python3
 subdir = f"experiments/ablation_models/xgb/model_{q}samples-{seed}"  # q is the number of samples and seed is the seed with which the ablation model was trained.

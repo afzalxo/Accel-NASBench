@@ -1,6 +1,12 @@
 ## ANB Evaluation
 We offer NAS optimizers we utilized for uni- and bi-objective optimization, combined with the results, plots and searched models.
 
+First install requirements using
+
+``` bash
+pip3 install -r requirements.txt
+```
+
 ### Bi-objective optimization
 #### Random Search
 To perform bi-objective accuracy-throughput random search, use the following command (example for vck190, throughput. Please adapt according to device/metric need):
@@ -23,6 +29,12 @@ This will print a dictionary of pareto-optimal solutions in the format: accuracy
 
 ``` python3
 63.659610748291016: [3228.82421875, [['MB', 1, 3, 1, 32, 16, 2, False], ['MB', 1, 3, 2, 16, 24, 3, True], ['MB', 4, 3, 2, 24, 40, 2, True], ['MB', 1, 5, 2, 40, 80, 3, False], ['MB', 6, 5, 1, 80, 112, 2, True], ['MB', 6, 3, 2, 112, 192, 3, True], ['MB', 6, 3, 1, 192, 320, 3, True]]]
+```
+
+Where throughput is measured in images/sec, and architecture is formatted as follows (Please also see _Appendix. B_ for allowed values):
+
+``` python3
+[[ block 0 type (Always Mobile Bottleneck (MB)), block 0 expansion factor, block 0 kernel size, block 0 stride, block 0 input channels, block 0 output channels, block 0 number of layers, block 0 squeeze-excite state], ...]
 ```
 
 #### REINFORCE
@@ -72,7 +84,7 @@ arch_epoch, top1_acc_best, ...
 ```
 
 ## No-proxy eval results
-The resulting pretrained models from zero-cost REINFORCE-based bi-objective search are offered:
+The resulting models from zero-cost REINFORCE-based bi-objective search (Section. 5.2) are offered:
 
 #### FPGA models
 | Target Device | DPU Arch | Model Name | Top-1 Accuracy Float | Top-1 Accuracy Quantized | E2E throughput (fps), Multi Thread, measured on target | Download Link |

@@ -67,7 +67,7 @@ def main():
 
     if args.simulated:
         if args.algorithm == "RS":
-            from SearchAlgorithms.random_search import RandomSearchSimulated
+            from nas_optimizers.random_search import RandomSearchSimulated
 
             rs = RandomSearchSimulated(
                 configspace_path, args.arch_epochs, args.episodes, surr_model
