@@ -12,7 +12,7 @@ import pickle
 
 from utils_anb.controller import Controller
 from utils_anb.utils_nasnet import actions_indices_to_config
-from utils_anb.utils_nasnet import pareto_frontier
+from utils_anb.utils_nasnet import pareto_frontier, plot_scatter_pareto
 
 multiprocessing.set_start_method("spawn", force=True)
 
@@ -458,14 +458,15 @@ class PolicyGradientSimulatedMO(object):
                     )
                     # baseline_eff = (254, 65.74) if arch_epoch == self.arch_epochs - 1 else None
                     # label_points = None if arch_epoch != self.arch_epochs - 1 else [(285.5571289, 66.83581543), (399.8745117, 66.20720673), (540.2183838, 65.12088776)]
-                    label_points = (
-                        None
-                        if arch_epoch != self.arch_epochs - 1
-                        else [(3302.111328, 67.07880402), (3735.628906, 66.35800934)]
-                    )
+                    # label_points = (
+                    #    None
+                    #    if arch_epoch != self.arch_epochs - 1
+                    #    else [(3302.111328, 67.07880402), (3735.628906, 66.35800934)]
+                    #)
                     # label_points = None if arch_epoch != self.arch_epochs - 1 else [(1465.461914, 66.91249084), (1316.0687, 67.29836)]
                     # label_points = None if arch_epoch != self.arch_epochs - 1 else [(8011.878418, 67.06536865), (12057.91797, 66.24349213)]
                     # label_points = None if arch_epoch != self.arch_epochs - 1 else [(6000.564453, 66.97509766), (8079.51416, 66.24349213)]
+                    label_points = None
                     with open(os.path.join(exp_dir, "search_res.pkl"), "wb") as pp:
                         pickle.dump(
                             [
@@ -477,7 +478,6 @@ class PolicyGradientSimulatedMO(object):
                             ],
                             pp,
                         )
-                    """
                     plot_scatter_pareto(
                         all_biobjs,
                         all_accs,
@@ -487,7 +487,6 @@ class PolicyGradientSimulatedMO(object):
                         label_points=label_points,
                         baseline_effnet=None, #baseline_eff,
                     )
-                    """
                     top_designs = {}
                     for i in lst:
                         top_designs[all_accs[i]] = [all_biobjs[i], all_designs[i]]
