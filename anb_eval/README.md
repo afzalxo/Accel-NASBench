@@ -44,7 +44,7 @@ Use the following command to run REINFORCE in bi-objective setting:
 python3 search_mo.py --arch_ep 250 --episodes 6 --device vck190 --metric throughput --algorithm PG --simulated --target_biobj 3000
 ```
 
-`target_biobj` controls the target throughput as stated in _Appendix. G_. The results are again logged in `logs/simulated` diretory in a similar format as above, however, only pkl files are generated. Please use the same code as above to decode the pkl files contents.
+`target_biobj` controls the target throughput as stated in _Appendix. G_. The results are again logged in `logs/simulated` diretory in a similar format as above. The script also generates Figure 4 of the paper. The example command above uses vck190 device and throughput as the metric, hence will generate **Figure 4 (c)** in `logs/simulated/` directory, where the relevant plot file `scatter_249.pdf` will also be generated. Please use the same code as above to decode the pkl files contents.
 
 
 ### Uni-objective optimization
