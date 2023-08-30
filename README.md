@@ -84,8 +84,7 @@ Example result of the above command using `seed=3` is as follows but will be dif
 
 ``` python3
 train metrics: {'mae': 0.20502309085633813, 'mse': 0.06897010112105674, 'rmse': 0.2626215930213217, 'r2': 0.9937321545409954, 'kendall_tau': 0.9485453372279331, 'kendall_tau_2_dec': 0.9490165549382614, 'kendall_tau_1_dec': 0.9521390453390867, 'spearmanr': 0.9963628656408133}
-valid metrics: {'mae': 0.32042279419469843, 'mse': 0.19266443301611308, 'rmse': 0.4
-3893556818297724, 'r2': 0.9827909607086215, 'kendall_tau': 0.9246529281557777, 'kendall_tau_2_dec': 0.9252142975144962, 'kendall_tau_1_dec': 0.9283951048238933, 'spearmanr': 0.991347023504538}
+valid metrics: {'mae': 0.32042279419469843, 'mse': 0.19266443301611308, 'rmse': 0.43893556818297724, 'r2': 0.9827909607086215, 'kendall_tau': 0.9246529281557777, 'kendall_tau_2_dec': 0.9252142975144962, 'kendall_tau_1_dec': 0.9283951048238933, 'spearmanr': 0.991347023504538}
 test metrics {'mae': 0.3169779104452133, 'mse': 0.16787281044461427, 'rmse': 0.4097228458905047, 'r2': 0.9839661171659461, 'kendall_tau': 0.9170514701750982, 'kendall_tau_2_dec': 0.9175674110264382, 'kendall_tau_1_dec': 0.9204615872718475, 'spearmanr': 0.98994312462432}
 ```
 
@@ -123,6 +122,9 @@ Please see [anb-eval](https://github.com/afzalxo/Accel-NASBench/tree/master/anb_
 
 ### Dataset Collection Pipelines
 Owing to the complex instrumentation of dataset collection, we have an entire repository that details collection pipelines for accuracy, throughput, and latency. Please see [ANB-DatasetCollection](https://anon-github.automl.cc/r/ANB-DatasetCollection-C564). Please note that collection of throughput/latency requires specialized hardware such as TPUs and FPGAs.
+
+### Maintenance Plan
+For maintanance plan, please see [MAINTENANCE.md](https://github.com/afzalxo/Accel-NASBench/tree/master/MAINTENANCE.md)
 
 ## Acknowledgements
 This repository builds upon code from the following repositories:
