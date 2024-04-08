@@ -102,31 +102,15 @@ The hyperparameters of the surrogates were optimized using [SMAC3](https://githu
 
 The searched hyperparameters for various device/metric pairs can be found [here](https://github.com/afzalxo/Accel-NASBench/tree/master/configs/model_configs).
 
-### Plots and Tables
-The subdirectory plots contains the code and data for makings the plots and tables. It relies on the benchmark to generate the predictions. In order to make the plots, LGB surrogate model is needed and can be downloaded [here](https://figshare.com/ndownloader/files/40181317). Extract the LGB surrogate zip file into the `anb_models_0_9` directory. Also needed are the ablation surrogate models. These are models that are trained on subsets of the total datasets, and are required to make e.g., Fig. 2 of the paper. These models can be downloaded [here](https://figshare.com/ndownloader/files/40191598). Extract the ablation models in `experiments/ablation_models` since that is where the models are loaded from as follows:
-
-``` python3
-subdir = f"experiments/ablation_models/xgb/model_{q}samples-{seed}"  # q is the number of samples and seed is the seed with which the ablation model was trained.
-```
-
-After placing the LGB and ablation models in the appropriate directories, run the plotting script as follows
-
-``` bash
-python3 plots/ablations_plots/scatter_multiseed_eval.py
-```
-
-This would generate Fig. 1 and Fig. 2 plots and save pdfs of them.
-
 ### ANB Evaluation
 Please see [anb-eval](https://github.com/afzalxo/Accel-NASBench/tree/master/anb_eval)
 
 ### Dataset Collection Pipelines
 Owing to the complex instrumentation of dataset collection, we have an entire repository that details collection pipelines for accuracy, throughput, and latency. Please see [ANB-DatasetCollection](https://anon-github.automl.cc/r/ANB-DatasetCollection-C564). Please note that collection of throughput/latency requires specialized hardware such as TPUs and FPGAs.
 
-### Maintenance Plan
-For maintanance plan, please see [MAINTENANCE.md](https://github.com/afzalxo/Accel-NASBench/tree/master/MAINTENANCE.md)
-
 ## Acknowledgements
+This project was supported by Cloud TPUs from Google's TPU Research Cloud (TRC) program. GPU compute supported by CloudLabs and Turing AI Compute Cluster @ HKUST.
+
 This repository builds upon code from the following repositories:
 
 - [NASBench-301](https://github.com/automl/nasbench301)
