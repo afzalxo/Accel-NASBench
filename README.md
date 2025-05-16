@@ -106,7 +106,7 @@ The searched hyperparameters for various device/metric pairs can be found [here]
 Please see [anb-eval](https://github.com/afzalxo/Accel-NASBench/tree/master/anb_eval)
 
 ### Dataset Collection Pipelines
-Owing to the complex instrumentation of dataset collection, we have an entire repository that details collection pipelines for accuracy, throughput, and latency. Please see [ANB-DatasetCollection](https://anon-github.automl.cc/r/ANB-DatasetCollection-C564). Please note that collection of throughput/latency requires specialized hardware such as TPUs and FPGAs.
+Owing to the complex instrumentation of dataset collection, we have an entire repository that details collection pipelines for accuracy, throughput, and latency. Please see [ANB-DatasetCollection](https://github.com/afzalxo/ANB-DatasetCollection). Please note that collection of throughput/latency requires specialized hardware such as TPUs and FPGAs.
 
 ## Acknowledgements
 This project was supported by Cloud TPUs from Google's TPU Research Cloud (TRC) program. GPU compute supported by CloudLabs and Turing AI Compute Cluster @ HKUST.
